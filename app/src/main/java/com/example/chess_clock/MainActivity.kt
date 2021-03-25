@@ -3,6 +3,7 @@ package com.example.chess_clock
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import com.example.chess_clock.databinding.ActivityMainBinding
 import java.time.Clock
 import java.time.Instant
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         var timer2 = Time(0,15,5,0)
         binding.btnTime1.text = "${timer1.getString(Time.MINUTES)}:${timer1.getString(Time.SECONDS)}"
         binding.btnTime2.text = "${timer2.getString(Time.MINUTES)}:${timer2.getString(Time.SECONDS)}"
+        val testTime = toTime(4290017)// 1050017 -> 0:17:30:17
+        Log.d("MainActivity",testTime.toString())
         var tmpTime = 0L
 
         binding.btnTime1.setOnClickListener {
@@ -43,13 +46,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private  fun toTime(measuredTime: Long): Time{
-//        var seconds = measuredTime / 1000
-//        var milliSeconds = measuredTime - seconds * 1000
-//        var minutes = seconds / 60
-//        seconds -= minutes * 60
-//        var hours = minutes / 60
-//        minutes -= hours * 60
-//        return Time(hours,minutes,seconds,milliSeconds)
-//    }
+    private  fun toTime(measuredTime: Long): Time{
+        var seconds = measuredTime / 1000
+        var milliSeconds = measuredTime - seconds * 1000
+        var minutes = seconds / 60
+        seconds -= minutes * 60
+        var hours = minutes / 60
+        minutes -= hours * 60
+        return Time(hours,minutes,seconds,milliSeconds)
+    }
 }
