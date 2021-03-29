@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/background">
+    android:background="@color/greenThemeLight">
 
     <Button
         android:id="@+id/btnTime1"
@@ -19,9 +19,9 @@
         android:layout_marginBottom="8dp"
         android:rotation="180"
         android:text=""
-        android:textColor="@color/background"
+        android:textColor="@color/greenThemeLight"
         android:textSize="60sp"
-        app:backgroundTint="@color/buttons"
+        app:backgroundTint="@color/greenThemeDark"
         app:iconTint="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/btnTime2"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -40,9 +40,9 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:text=""
-        android:textColor="@color/background"
+        android:textColor="@color/greenThemeLight"
         android:textSize="60sp"
-        app:backgroundTint="@color/buttons"
+        app:backgroundTint="@color/greenThemeDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
@@ -60,27 +60,14 @@
         android:id="@+id/btnSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_settings_foreground"
         android:rotation="90"
-        android:text="@string/btnSettings"
-        android:textColor="@color/background"
-        app:backgroundTint="@color/buttons"
-        app:layout_constraintBottom_toTopOf="@+id/btnStartPause"
+        app:backgroundTint="@color/greenThemeDark"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.64"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnStartPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rotation="90"
-        android:text="@string/btnStart"
-        android:textColor="@color/background"
-        app:backgroundTint="@color/buttons"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
