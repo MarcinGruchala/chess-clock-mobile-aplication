@@ -8,18 +8,34 @@ class ChessClock(
         val button2: Button,
         val gameLength: Long,
         val interval: Long
-) : CountDownTimer(gameLength,interval) {
-    override fun onTick(millisUntilFinished: Long) {
-        updateUi()
+)  {
+    var isOn = false
+    var whiteTime = gameLength
+    var blackTime = gameLength
+    var countDownTimer: CountDownTimer? = null
+
+    fun startClocks(){
+        countDownTimer = object : CountDownTimer(whiteTime,interval){
+            override fun onTick(millisUntilFinished: Long) {
+                updateUi(Time.toTime(millisUntilFinished))
+                whiteTime = millisUntilFinished
+            }
+
+            override fun onFinish() {
+                TODO("Not yet implemented")
+            }
+        }
+        countDownTimer!!.start()
+
     }
 
-    override fun onFinish() {
-        TODO("Not yet implemented")
+    fun stopClocks(){
+        countDownTimer!!.cancel()
     }
 
-    private fun updateUi(){
-        button1.text = "CZAS"
-        button2.text = "CZAS"
+    private fun updateUi(whiteTime: Time){
+        button2.text = "${whiteTime.getString(Time.MINUTES)}:${whiteTime.getString(Time.SECONDS)}"
+        //button2.text = "CZAS"
     }
 
 }

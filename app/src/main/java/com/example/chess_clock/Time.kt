@@ -14,6 +14,17 @@ class Time(
         val MINUTES = 2
         val SECONDS = 3
         val MILLISECONDS = 4
+
+        fun toTime(measuredTime: Long): Time{
+            var seconds = measuredTime / 1000
+            var milliSeconds = measuredTime - seconds * 1000
+            var minutes = seconds / 60
+            seconds -= minutes * 60
+            var hours = minutes / 60
+            minutes -= hours * 60
+            return Time(hours,minutes,seconds,milliSeconds)
+        }
+
     }
 
 
