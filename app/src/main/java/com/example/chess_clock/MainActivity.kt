@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         var countDownInterval = 1000L
         var chessTimer= ChessClock(btnTime1,btnTime2,gameLength,countDownInterval)
 
+        binding.btnTime1.text = "${Time.toTime(gameLength).getString(Time.MINUTES)}:${Time.toTime(gameLength).getString(Time.SECONDS)}"
+        binding.btnTime2.text = "${Time.toTime(gameLength).getString(Time.MINUTES)}:${Time.toTime(gameLength).getString(Time.SECONDS)}"
 
 
         binding.btnTime1.setOnClickListener {
