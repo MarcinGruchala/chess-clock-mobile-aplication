@@ -4,45 +4,48 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.widget.Button
 import com.example.chess_clock.databinding.ActivityMainBinding
-import java.time.Clock
-import java.time.Instant
-import java.util.concurrent.TimeUnit
 
 private lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        val time = System.currentTimeMillis()
-        var startTime = 0L
-        var stopTime = 0L
-        var moveDuration = 0L
-        var timer1 = Time(0,15,5,0)
-        var timer2 = Time(0,15,5,0)
-        binding.btnTime1.text = "${timer1.getString(Time.MINUTES)}:${timer1.getString(Time.SECONDS)}"
-        binding.btnTime2.text = "${timer2.getString(Time.MINUTES)}:${timer2.getString(Time.SECONDS)}"
-        val testTime = toTime(4290017)// 1050017 -> 0:17:30:17
-        Log.d("MainActivity",testTime.toString())
-        var tmpTime = 0L
+        val btnTime1 = findViewById<Button>(R.id.btnTime1)
+        val btnTime2 = findViewById<Button>(R.id.btnTime2)
+
+        var gameLength = 900000L
+        var countDownInterval = 1000L
+        lateinit var whiteTime: Time
+        var whiteTimeRemaining = gameLength
+
+        var chessClock: CountDownTimer? = null
+
+       // var whiteClock = chessClock
+
 
         binding.btnTime1.setOnClickListener {
-//            startTime = System.currentTimeMillis()
-
+            chessClock = object : CountDownTimer(whiteTimeRemaining,countDownInterval){
+                var remainingTime = gameLength
+                override fun onTick(millisUntilFinished: Long) {
+                    whiteTime = toTime(millisUntilFinished)
+                    updateUI(whiteTime)
+                    whiteTimeRemaining = millisUntilFinished
+                }
+                override fun onFinish() {}
+            }
+            chessClock!!.start()
 
 
         }
 
         binding.btnTime2.setOnClickListener {
-//            stopTime = System.currentTimeMillis()
-//            moveDuration = startTime - stopTime
-//            timer2.allToMilliSeconds()
-//            tmpTime = timer2.milliSeconds - moveDuration
-//            timer2 = toTime(tmpTime)
-//            binding.btnTime2.text = "${timer2.minutes}:${timer2.seconds}"
+            chessClock!!.cancel()
         }
     }
 
@@ -54,5 +57,13 @@ class MainActivity : AppCompatActivity() {
         var hours = minutes / 60
         minutes -= hours * 60
         return Time(hours,minutes,seconds,milliSeconds)
+    }
+
+    private fun updateUI(whiteTime: Time){
+        binding.btnTime2.text="${whiteTime.getString(Time.MINUTES)}:${whiteTime.getString(Time.SECONDS)}"
+    }
+
+    private fun pauseClock(clock: CountDownTimer){
+        clock.cancel()
     }
 }
