@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background">#8BC34A</color>
     <color name="buttons">#D6E4C4</color>
+    <color name="greenThemeDark">#769656</color>
+    <color name="greenThemeLight">#eeeed2</color>
 </resources>
