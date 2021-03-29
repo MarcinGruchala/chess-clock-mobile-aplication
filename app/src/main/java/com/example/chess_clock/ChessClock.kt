@@ -4,38 +4,55 @@ import android.os.CountDownTimer
 import android.widget.Button
 
 class ChessClock(
-        val button1: Button,
-        val button2: Button,
+        var whitenButton: Button,
+        var blackButton: Button,
         val gameLength: Long,
         val interval: Long
 )  {
+    enum class Player{White,Black}
     var isOn = false
     var whiteTime = gameLength
     var blackTime = gameLength
+    var playerTurn = Player.Black
     var countDownTimer: CountDownTimer? = null
 
     fun startClocks(){
-        countDownTimer = object : CountDownTimer(whiteTime,interval){
-            override fun onTick(millisUntilFinished: Long) {
-                updateUi(Time.toTime(millisUntilFinished))
-                whiteTime = millisUntilFinished
-            }
+        when(playerTurn){
+            Player.White -> {
+                countDownTimer = object : CountDownTimer(whiteTime,interval){
+                    override fun onTick(millisUntilFinished: Long) {
+                        whiteTime = millisUntilFinished
+                        updateUi(Time.toTime(whiteTime), Time.toTime(blackTime))
+                    }
+                    override fun onFinish() {}
+                }
 
-            override fun onFinish() {
-                TODO("Not yet implemented")
+            }
+            Player.Black ->{
+                countDownTimer = object : CountDownTimer(blackTime,interval){
+                    override fun onTick(millisUntilFinished: Long) {
+                        blackTime = millisUntilFinished
+                        updateUi(Time.toTime(whiteTime), Time.toTime(blackTime))
+                    }
+                    override fun onFinish() {}
+                }
+
             }
         }
         countDownTimer!!.start()
-
     }
 
     fun stopClocks(){
         countDownTimer!!.cancel()
     }
 
-    private fun updateUi(whiteTime: Time){
-        button2.text = "${whiteTime.getString(Time.MINUTES)}:${whiteTime.getString(Time.SECONDS)}"
-        //button2.text = "CZAS"
+    fun playerUpdate(){
+        playerTurn = if (playerTurn==Player.White) Player.Black else Player.White
+    }
+
+    private fun updateUi(whiteTime: Time, blackTime: Time){
+        whitenButton.text = "${whiteTime.getString(Time.MINUTES)}:${whiteTime.getString(Time.SECONDS)}"
+        blackButton.text = "${blackTime.getString(Time.MINUTES)}:${blackTime.getString(Time.SECONDS)}"
     }
 
 }

@@ -23,12 +23,35 @@ class MainActivity : AppCompatActivity() {
         var chessTimer= ChessClock(btnTime1,btnTime2,gameLength,countDownInterval)
 
 
+
         binding.btnTime1.setOnClickListener {
-            chessTimer.startClocks()
+            if (!chessTimer.isOn){
+                chessTimer.isOn = true
+                chessTimer.blackButton=btnTime1
+                chessTimer.whitenButton=btnTime2
+                chessTimer.startClocks()
+            }
+            else{
+                chessTimer.stopClocks()
+                chessTimer.playerUpdate()
+                chessTimer.startClocks()
+            }
+
         }
 
         binding.btnTime2.setOnClickListener {
-            chessTimer.stopClocks()
+            if (!chessTimer.isOn){
+                chessTimer.isOn = true
+                chessTimer.blackButton=btnTime2
+                chessTimer.whitenButton=btnTime1
+                chessTimer.startClocks()
+            }
+            else{
+                chessTimer.stopClocks()
+                chessTimer.playerUpdate()
+                chessTimer.startClocks()
+            }
+
         }
     }
 }
