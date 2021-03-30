@@ -1,5 +1,6 @@
 package com.example.chess_clock
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -25,6 +26,11 @@ class MainActivity : AppCompatActivity() {
         binding.btnTime1.text = "${Time.toTime(gameLength).getString(Time.MINUTES)}:${Time.toTime(gameLength).getString(Time.SECONDS)}"
         binding.btnTime2.text = "${Time.toTime(gameLength).getString(Time.MINUTES)}:${Time.toTime(gameLength).getString(Time.SECONDS)}"
 
+        binding.btnSettings.setOnClickListener {
+            Intent(this,SettingsActivity::class.java).also {
+                startActivity(it)
+            }
+        }
 
         binding.btnTime1.setOnClickListener {
             if (!chessTimer.isOn){
