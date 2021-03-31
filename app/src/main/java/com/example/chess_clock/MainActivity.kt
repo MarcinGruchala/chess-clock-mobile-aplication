@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
                 chessTimer.playerUpdate()
                 chessTimer.startClocks()
             }
-
         }
 
         binding.btnTime2.setOnClickListener {
@@ -59,7 +58,6 @@ class MainActivity : AppCompatActivity() {
                 chessTimer.playerUpdate()
                 chessTimer.startClocks()
             }
-
         }
     }
 }

@@ -11,6 +11,7 @@ class SettingsActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         setSupportActionBar(findViewById(R.id.settings_toolbar))
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentSettings, SettingsFragment()).commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
