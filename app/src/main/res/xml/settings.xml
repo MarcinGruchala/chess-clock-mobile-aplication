@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/greenThemeLight">
+
     <PreferenceCategory
-        android:key="notifications_category"
-        android:title="Notifications">
-
-        <SwitchPreferenceCompat
-            android:key="notifications"
-            android:title="Enable message notifications"/>
-
+        android:title="Bullet"
+        android:icon="@drawable/ic_bullet">
+        <CheckBoxPreference
+            android:key="cbTimerMode"
+            android:title="1 "
+            android:summary="1 min"/>
+        <CheckBoxPreference
+            android:key="cbTimerMode"
+            android:title="2 "
+            android:summary="2 min "/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="help_category"
-        android:title="Help">
-
-        <Preference
-            android:key="feedback"
-            android:summary="Report technical issues or suggest new features"
-            android:title="Send feedback"/>
-
+        android:title="Blitz"
+        android:icon="@drawable/ic_blitz">
+        <CheckBoxPreference
+            android:key="cbTimerMode"
+            android:title="3"
+            android:summary="3 min"/>
+        <CheckBoxPreference
+            android:key="cbTimerMode"
+            android:title="5 "
+            android:summary="5 min"/>
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Rapid"
+        android:icon="@drawable/ic_rapid">
+        <CheckBoxPreference
+            android:key="cbTimerMode"
+            android:title="10"
+            android:summary="10 min"/>
+        <CheckBoxPreference
+            android:key="cbTimerMode"
+            android:title="15 "
+            android:summary="15 min "/>
+    </PreferenceCategory>
+
+
+
+
 </PreferenceScreen>
