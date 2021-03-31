@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/greenThemeLight">
 
-    <android.widget.Toolbar
-        android:id="@+id/my_toolbar"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/settings_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/greenThemeDark"
@@ -17,6 +17,9 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:menu="@menu/settings_menu"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Settings"
+        app:titleTextColor="@color/greenThemeLight" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
