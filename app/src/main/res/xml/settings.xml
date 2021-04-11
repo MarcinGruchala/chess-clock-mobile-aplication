@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/greenThemeLight">
 
     <PreferenceCategory
         android:title="Bullet"
         android:icon="@drawable/ic_bullet">
         <CheckBoxPreference
-            android:key="cbTimerMode"
+            android:key="oneMin"
             android:title="1 "
-            android:summary="1 min"/>
+            android:summary="1 min"
+            android:defaultValue="true"/>
         <CheckBoxPreference
-            android:key="cbTimerMode"
+            android:key="twoMin"
             android:title="2 "
             android:summary="2 min "/>
     </PreferenceCategory>
@@ -19,24 +20,25 @@
         android:title="Blitz"
         android:icon="@drawable/ic_blitz">
         <CheckBoxPreference
-            android:key="cbTimerMode"
+            android:key="threeMin"
             android:title="3"
             android:summary="3 min"/>
         <CheckBoxPreference
-            android:key="cbTimerMode"
+            android:key="fiveMin"
             android:title="5 "
             android:summary="5 min"/>
     </PreferenceCategory>
 
     <PreferenceCategory
+
         android:title="Rapid"
         android:icon="@drawable/ic_rapid">
         <CheckBoxPreference
-            android:key="cbTimerMode"
+            android:key="tenMin"
             android:title="10"
             android:summary="10 min"/>
         <CheckBoxPreference
-            android:key="cbTimerMode"
+            android:key="fifteenMin"
             android:title="15 "
             android:summary="15 min "/>
     </PreferenceCategory>
@@ -44,4 +46,4 @@
 
 
 
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>

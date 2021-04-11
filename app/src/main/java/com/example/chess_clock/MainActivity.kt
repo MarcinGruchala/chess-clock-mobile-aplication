@@ -1,25 +1,33 @@
 package com.example.chess_clock
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Button
+import androidx.preference.PreferenceManager
 import com.example.chess_clock.databinding.ActivityMainBinding
 
 private lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        Settings.load(PreferenceManager.getDefaultSharedPreferences(applicationContext))
+    }
+
+    override fun onResume() {
+        super.onResume()
         val btnTime1 = findViewById<Button>(R.id.btnTime1)
         val btnTime2 = findViewById<Button>(R.id.btnTime2)
-        var gameLength = 900000L
+
+        var gameLength = Settings.getGameTime()
         var countDownInterval = 1000L
         var chessTimer= ChessClock(btnTime1,btnTime2,gameLength,countDownInterval)
 
