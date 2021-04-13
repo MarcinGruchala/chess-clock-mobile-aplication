@@ -27,9 +27,10 @@ class MainActivity : AppCompatActivity() {
 
         var gameTime = Settings.getGameTime()
         var gameTimeIncrement = Settings.getGameTimeIncrement()
+        Log.d("MainActivity", "Increment setting: $gameTimeIncrement")
 
         var countDownInterval = 1000L
-        var chessTimer= ChessClock(btnTime1,btnTime2,gameTime,countDownInterval)
+        var chessTimer= ChessClock(btnTime1,btnTime2,gameTime,gameTimeIncrement,countDownInterval)
 
         binding.btnTime1.text = "${Time.toTime(gameTime).getString(Time.MINUTES)}:${Time.toTime(gameTime).getString(Time.SECONDS)}"
         binding.btnTime2.text = "${Time.toTime(gameTime).getString(Time.MINUTES)}:${Time.toTime(gameTime).getString(Time.SECONDS)}"
