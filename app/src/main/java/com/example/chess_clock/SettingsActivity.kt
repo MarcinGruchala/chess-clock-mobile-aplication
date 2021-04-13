@@ -41,5 +41,6 @@ class SettingsActivity : AppCompatActivity() {
      private fun updateSettings(){
          val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
          Settings.gameTime = sharedPreferences.getString("gameTime","10min")
+         Settings.gameTimeIncrement = sharedPreferences.getString("gameTimeIncrement", "0s")
      }
 }

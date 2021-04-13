@@ -3,6 +3,7 @@ package com.example.chess_clock
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.preference.PreferenceManager
 import com.example.chess_clock.databinding.ActivityMainBinding
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         val btnTime2 = findViewById<Button>(R.id.btnTime2)
 
         var gameTime = Settings.getGameTime()
+        var gameTimeIncrement = Settings.getGameTimeIncrement()
+
         var countDownInterval = 1000L
         var chessTimer= ChessClock(btnTime1,btnTime2,gameTime,countDownInterval)
 
