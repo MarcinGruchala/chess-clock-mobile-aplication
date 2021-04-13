@@ -8,43 +8,21 @@ import com.example.chess_clock.databinding.ActivitySettingsBinding
 import kotlin.coroutines.coroutineContext
 
 object Settings {
-    var oneMin = true
-    var twoMin = false
-    var threeMin = false
-    var fiveMin = false
-    var tenMin =  false
-    var fifteenMin = false
+    var gameTime: String? = "10min"
+
 
     fun load(sharedPreferences: SharedPreferences){
-        oneMin = sharedPreferences.getBoolean("oneMin", true)
-        twoMin = sharedPreferences.getBoolean("twoMin", false)
-        threeMin = sharedPreferences.getBoolean("threeMin", false)
-        fiveMin = sharedPreferences.getBoolean("fiveMin", false)
-        tenMin = sharedPreferences.getBoolean("tenMin",false)
-        fifteenMin = sharedPreferences.getBoolean("fifteenMin", false)
+        gameTime = sharedPreferences.getString("gameTime", "10min")
     }
 
-    fun getGameTime(): Long{
-        if(oneMin){
-            return 60000L
-        }
-        else if (twoMin){
-            return  120000L
-        }
-        else if(threeMin){
-            return 180000L
-        }
-        else if(fiveMin){
-            return 300000L
-        }
-        else if (tenMin){
-            return 600000L
-        }
-        else if (fifteenMin){
-            return 900000L
-        }
-        else{
-            return  0L
+    fun getGameTime(): Long {
+        return when(gameTime){
+            "1min" -> 60000L
+            "3min" -> 180000L
+            "5min" -> 300000L
+            "10min" -> 600000L
+            "15min" -> 900000L
+            else -> 0L
         }
     }
 }

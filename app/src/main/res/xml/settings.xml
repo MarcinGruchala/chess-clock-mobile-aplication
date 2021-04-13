@@ -1,47 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/greenThemeLight">
 
-    <PreferenceCategory
-        android:title="Bullet"
-        android:icon="@drawable/ic_bullet">
-        <CheckBoxPreference
-            android:key="oneMin"
-            android:title="1 "
-            android:summary="1 min"
-            android:defaultValue="true"/>
-        <CheckBoxPreference
-            android:key="twoMin"
-            android:title="2 "
-            android:summary="2 min "/>
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="Blitz"
-        android:icon="@drawable/ic_blitz">
-        <CheckBoxPreference
-            android:key="threeMin"
-            android:title="3"
-            android:summary="3 min"/>
-        <CheckBoxPreference
-            android:key="fiveMin"
-            android:title="5 "
-            android:summary="5 min"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory
-
-        android:title="Rapid"
-        android:icon="@drawable/ic_rapid">
-        <CheckBoxPreference
-            android:key="tenMin"
-            android:title="10"
-            android:summary="10 min"/>
-        <CheckBoxPreference
-            android:key="fifteenMin"
-            android:title="15 "
-            android:summary="15 min "/>
-    </PreferenceCategory>
+    <ListPreference
+        android:icon = "@drawable/ic_rapid"
+        android:key="gameTime"
+        android:title="Game time"
+        android:entries="@array/gameTime_entries"
+        android:entryValues="@array/gameTime_values"
+        android:defaultValue="10min"
+        app:useSimpleSummaryProvider="true"/>
 
 
 

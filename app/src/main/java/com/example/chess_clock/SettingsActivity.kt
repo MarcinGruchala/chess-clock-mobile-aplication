@@ -17,8 +17,6 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
         setSupportActionBar(findViewById(R.id.settings_toolbar))
         supportFragmentManager.beginTransaction().replace(R.id.fragmentSettings, SettingsFragment()).commit()
-
-
      }
 
      override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -42,11 +40,6 @@ class SettingsActivity : AppCompatActivity() {
 
      private fun updateSettings(){
          val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-         Settings.oneMin = sharedPreferences.getBoolean("oneMin", true)
-         Settings.twoMin = sharedPreferences.getBoolean("twoMin", false)
-         Settings.threeMin = sharedPreferences.getBoolean("threeMin", false)
-         Settings.fiveMin = sharedPreferences.getBoolean("fiveMin", false)
-         Settings.tenMin = sharedPreferences.getBoolean("tenMin", false)
-         Settings.fifteenMin = sharedPreferences.getBoolean("fifTeen", false)
+         Settings.gameTime = sharedPreferences.getString("gameTime","10min")
      }
 }
