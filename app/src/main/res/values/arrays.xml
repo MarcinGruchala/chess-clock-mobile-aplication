@@ -15,4 +15,22 @@
         <item>10min</item>
         <item>15min</item>
     </string-array>
+
+    <string-array name="increment_entries">
+        <item>no increment</item>
+        <item>1 s</item>
+        <item>2 s</item>
+        <item>5 s</item>
+        <item>10 s</item>
+        <item>45 s</item>
+    </string-array>
+
+    <string-array name="increment_values">
+        <item>0s</item>
+        <item>1s</item>
+        <item>2s</item>
+        <item>5s</item>
+        <item>10s</item>
+        <item>45s</item>
+    </string-array>
 </resources>
