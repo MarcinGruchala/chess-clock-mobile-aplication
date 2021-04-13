@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/greenThemeLight">
+
+    <ListPreference
+        android:icon = "@drawable/ic_rapid"
+        android:key="gameTime"
+        android:title="Game time"
+        android:entries="@array/gameTime_entries"
+        android:entryValues="@array/gameTime_values"
+        android:defaultValue="10min"
+        app:useSimpleSummaryProvider="true"/>
+
+
+
+
+</androidx.preference.PreferenceScreen>

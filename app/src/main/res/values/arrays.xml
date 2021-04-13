@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gameTime_entries">
+        <item>1 min</item>
+        <item>3 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+    </string-array>
+
+    <string-array name="gameTime_values">
+        <item>1min</item>
+        <item>3min</item>
+        <item>5min</item>
+        <item>10min</item>
+        <item>15min</item>
+    </string-array>
+</resources>
