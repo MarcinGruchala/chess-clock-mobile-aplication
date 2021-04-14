@@ -1,5 +1,6 @@
 package com.example.chess_clock
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +11,7 @@ import com.example.chess_clock.databinding.ActivityMainBinding
 
 private lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
-
+    lateinit var chessClock: ChessClock
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -18,22 +19,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         Settings.load(PreferenceManager.getDefaultSharedPreferences(applicationContext))
+        chessClock = ChessClock()
+
     }
+
 
     override fun onResume() {
         super.onResume()
+
         val btnTime1 = findViewById<Button>(R.id.btnTime1)
         val btnTime2 = findViewById<Button>(R.id.btnTime2)
 
-        var gameTime = Settings.getGameTime()
-        var gameTimeIncrement = Settings.getGameTimeIncrement()
-        Log.d("MainActivity", "Increment setting: $gameTimeIncrement")
-
-        var countDownInterval = 1000L
-        var chessTimer= ChessClock(btnTime1,btnTime2,gameTime,gameTimeIncrement,countDownInterval)
-
-        binding.btnTime1.text = "${Time.toTime(gameTime).getString(Time.MINUTES)}:${Time.toTime(gameTime).getString(Time.SECONDS)}"
-        binding.btnTime2.text = "${Time.toTime(gameTime).getString(Time.MINUTES)}:${Time.toTime(gameTime).getString(Time.SECONDS)}"
+        binding.btnTime1.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"
+        binding.btnTime2.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"
 
         binding.btnSettings.setOnClickListener {
             Intent(this,SettingsActivity::class.java).also {
@@ -42,30 +40,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnTime1.setOnClickListener {
-            if (!chessTimer.isOn){
-                chessTimer.isOn = true
-                chessTimer.blackButton=btnTime1
-                chessTimer.whitenButton=btnTime2
-                chessTimer.startClocks()
+            if (!chessClock.isOn){
+                chessClock.startGame(btnTime2,btnTime1)
             }
             else{
-                chessTimer.stopClocks()
-                chessTimer.playerUpdate()
-                chessTimer.startClocks()
+                chessClock.handleTurn()
             }
         }
 
         binding.btnTime2.setOnClickListener {
-            if (!chessTimer.isOn){
-                chessTimer.isOn = true
-                chessTimer.blackButton=btnTime2
-                chessTimer.whitenButton=btnTime1
-                chessTimer.startClocks()
+            if (!chessClock.isOn){
+                chessClock.startGame(btnTime1,btnTime2)
             }
             else{
-                chessTimer.stopClocks()
-                chessTimer.playerUpdate()
-                chessTimer.startClocks()
+                chessClock.handleTurn()
             }
         }
     }

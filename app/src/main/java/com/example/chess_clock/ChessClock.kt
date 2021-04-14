@@ -4,19 +4,38 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Button
 
-class ChessClock(
-        var whitenButton: Button,
-        var blackButton: Button,
-        val gameTime: Long,
-        val gameTimeIncrement: Long,
-        val interval: Long
-)  {
+class ChessClock() {
     enum class Player{White,Black}
+    private val interval: Long = 1000L
     var isOn = false
+
+    val gameTime: Long = Settings.getGameTime()
+    val gameTimeIncrement: Long = Settings.getGameTimeIncrement()
     var whiteTime = gameTime
     var blackTime = gameTime
     var playerTurn = Player.Black
     var countDownTimer: CountDownTimer? = null
+
+    var whiteButton: Button? = null
+    var blackButton: Button? = null
+
+
+    fun setButtons(buttonForWhite: Button, buttonForBlack: Button){
+        whiteButton = buttonForWhite
+        blackButton = buttonForBlack
+    }
+
+    fun startGame(buttonForWhite: Button, buttonForBlack: Button){
+        isOn = true
+        setButtons(buttonForWhite,buttonForBlack)
+        startClocks()
+    }
+
+    fun handleTurn(){
+        stopClocks()
+        playerUpdate()
+        startClocks()
+    }
 
     fun startClocks(){
         when(playerTurn){
@@ -64,8 +83,8 @@ class ChessClock(
     }
 
     private fun updateUi(whiteTime: Time, blackTime: Time){
-        whitenButton.text = "${whiteTime.getString(Time.MINUTES)}:${whiteTime.getString(Time.SECONDS)}"
-        blackButton.text = "${blackTime.getString(Time.MINUTES)}:${blackTime.getString(Time.SECONDS)}"
+        whiteButton?.text = "${whiteTime.getString(Time.MINUTES)}:${whiteTime.getString(Time.SECONDS)}"
+        blackButton?.text = "${blackTime.getString(Time.MINUTES)}:${blackTime.getString(Time.SECONDS)}"
     }
 
 }
