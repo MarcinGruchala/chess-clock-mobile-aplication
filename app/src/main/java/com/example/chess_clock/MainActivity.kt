@@ -11,7 +11,11 @@ import com.example.chess_clock.databinding.ActivityMainBinding
 
 private lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
+
+    lateinit var btnTime1: Button
+    lateinit var btnTime2: Button
     lateinit var chessClock: ChessClock
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -19,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         Settings.load(PreferenceManager.getDefaultSharedPreferences(applicationContext))
+        btnTime1 = findViewById<Button>(R.id.btnTime1)
+        btnTime2 = findViewById<Button>(R.id.btnTime2)
         chessClock = ChessClock()
 
     }
@@ -27,8 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val btnTime1 = findViewById<Button>(R.id.btnTime1)
-        val btnTime2 = findViewById<Button>(R.id.btnTime2)
+        chessClock.updateWithSettings()
 
         binding.btnTime1.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"
         binding.btnTime2.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"

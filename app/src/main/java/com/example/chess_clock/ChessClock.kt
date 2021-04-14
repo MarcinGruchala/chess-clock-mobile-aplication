@@ -9,8 +9,8 @@ class ChessClock() {
     private val interval: Long = 1000L
     var isOn = false
 
-    val gameTime: Long = Settings.getGameTime()
-    val gameTimeIncrement: Long = Settings.getGameTimeIncrement()
+    var gameTime: Long = Settings.getGameTime()
+    var gameTimeIncrement: Long = Settings.getGameTimeIncrement()
     var whiteTime = gameTime
     var blackTime = gameTime
     var playerTurn = Player.Black
@@ -18,12 +18,6 @@ class ChessClock() {
 
     var whiteButton: Button? = null
     var blackButton: Button? = null
-
-
-    fun setButtons(buttonForWhite: Button, buttonForBlack: Button){
-        whiteButton = buttonForWhite
-        blackButton = buttonForBlack
-    }
 
     fun startGame(buttonForWhite: Button, buttonForBlack: Button){
         isOn = true
@@ -37,7 +31,12 @@ class ChessClock() {
         startClocks()
     }
 
-    fun startClocks(){
+    fun updateWithSettings(){
+        gameTime = Settings.getGameTime()
+        gameTimeIncrement = Settings.getGameTimeIncrement()
+    }
+
+    private fun startClocks(){
         when(playerTurn){
             Player.White -> {
                 countDownTimer = object : CountDownTimer(whiteTime,interval){
@@ -63,7 +62,7 @@ class ChessClock() {
         countDownTimer!!.start()
     }
 
-    fun stopClocks(){
+    private fun stopClocks(){
         countDownTimer!!.cancel()
         when(playerTurn){
             Player.White ->{
@@ -78,7 +77,7 @@ class ChessClock() {
         updateUi(Time.toTime(whiteTime), Time.toTime(blackTime))
     }
 
-    fun playerUpdate(){
+    private fun playerUpdate(){
         playerTurn = if (playerTurn==Player.White) Player.Black else Player.White
     }
 
@@ -86,5 +85,11 @@ class ChessClock() {
         whiteButton?.text = "${whiteTime.getString(Time.MINUTES)}:${whiteTime.getString(Time.SECONDS)}"
         blackButton?.text = "${blackTime.getString(Time.MINUTES)}:${blackTime.getString(Time.SECONDS)}"
     }
+
+    private fun setButtons(buttonForWhite: Button, buttonForBlack: Button){
+        whiteButton = buttonForWhite
+        blackButton = buttonForBlack
+    }
+
 
 }
