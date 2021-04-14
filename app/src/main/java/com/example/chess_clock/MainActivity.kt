@@ -35,13 +35,17 @@ class MainActivity : AppCompatActivity() {
 
         chessClock.updateWithSettings()
 
-        binding.btnTime1.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"
-        binding.btnTime2.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"
+        updateClockButtons()
 
         binding.btnSettings.setOnClickListener {
             Intent(this,SettingsActivity::class.java).also {
                 startActivity(it)
             }
+        }
+
+        binding.btnRestart.setOnClickListener {
+            chessClock.restartClock()
+            updateClockButtons()
         }
 
         binding.btnTime1.setOnClickListener {
@@ -61,5 +65,10 @@ class MainActivity : AppCompatActivity() {
                 chessClock.handleTurn()
             }
         }
+    }
+
+    private fun updateClockButtons(){
+        binding.btnTime1.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"
+        binding.btnTime2.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"
     }
 }

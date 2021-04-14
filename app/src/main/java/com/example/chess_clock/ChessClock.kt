@@ -34,7 +34,17 @@ class ChessClock() {
     fun updateWithSettings(){
         gameTime = Settings.getGameTime()
         gameTimeIncrement = Settings.getGameTimeIncrement()
+        whiteTime = gameTime
+        blackTime = gameTime
     }
+
+    fun  restartClock(){
+        countDownTimer!!.cancel()
+        updateWithSettings()
+        playerTurn = Player.Black
+        isOn = false
+    }
+
 
     private fun startClocks(){
         when(playerTurn){
