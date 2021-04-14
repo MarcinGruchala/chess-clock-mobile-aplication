@@ -1,18 +1,20 @@
 package com.example.chess_clock
 
 import android.os.CountDownTimer
+import android.util.Log
 import android.widget.Button
 
 class ChessClock(
         var whitenButton: Button,
         var blackButton: Button,
-        val gameLength: Long,
+        val gameTime: Long,
+        val gameTimeIncrement: Long,
         val interval: Long
 )  {
     enum class Player{White,Black}
     var isOn = false
-    var whiteTime = gameLength
-    var blackTime = gameLength
+    var whiteTime = gameTime
+    var blackTime = gameTime
     var playerTurn = Player.Black
     var countDownTimer: CountDownTimer? = null
 
@@ -44,6 +46,17 @@ class ChessClock(
 
     fun stopClocks(){
         countDownTimer!!.cancel()
+        when(playerTurn){
+            Player.White ->{
+                Log.d("ChessClock","Increment WHITE time")
+                whiteTime += gameTimeIncrement
+            }
+            Player.Black ->{
+                Log.d("ChessClock", "Increment BLACK time")
+                blackTime += gameTimeIncrement
+            }
+        }
+        updateUi(Time.toTime(whiteTime), Time.toTime(blackTime))
     }
 
     fun playerUpdate(){

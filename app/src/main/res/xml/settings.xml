@@ -4,13 +4,24 @@
     android:background="@color/greenThemeLight">
 
     <ListPreference
-        android:icon = "@drawable/ic_rapid"
-        android:key="gameTime"
-        android:title="Game time"
+        android:layout_width="0dp"
+        android:defaultValue="10min"
         android:entries="@array/gameTime_entries"
         android:entryValues="@array/gameTime_values"
-        android:defaultValue="10min"
+        android:icon="@drawable/ic_rapid"
+        android:key="gameTime"
+        android:title="Game time"
+        app:useSimpleSummaryProvider="true" />
+
+    <ListPreference
+        android:icon="@drawable/ic_increment"
+        android:defaultValue="0s"
+        android:entries="@array/increment_entries"
+        android:entryValues="@array/increment_values"
+        android:key="gameTimeIncrement"
+        android:title="Game time increment"
         app:useSimpleSummaryProvider="true"/>
+
 
 
 
