@@ -8,6 +8,7 @@ class ChessClock() {
     enum class Player{White,Black}
     private val interval: Long = 1000L
     var isOn = false
+    var onPause = false
 
     var gameTime: Long = Settings.getGameTime()
     var gameTimeIncrement: Long = Settings.getGameTimeIncrement()
@@ -21,7 +22,9 @@ class ChessClock() {
 
     fun startGame(buttonForWhite: Button, buttonForBlack: Button){
         isOn = true
+        onPause = true
         setButtons(buttonForWhite,buttonForBlack)
+        playerUpdate()
         startClocks()
     }
 
@@ -36,13 +39,25 @@ class ChessClock() {
         gameTimeIncrement = Settings.getGameTimeIncrement()
         whiteTime = gameTime
         blackTime = gameTime
+        Settings.newSettings = false
     }
 
-    fun  restartClock(){
+    fun  restart(){
         countDownTimer!!.cancel()
         updateWithSettings()
         playerTurn = Player.Black
         isOn = false
+    }
+
+    fun pause(){
+        onPause = false
+        countDownTimer!!.cancel()
+
+    }
+
+    fun run(){
+        onPause = true
+        startClocks()
     }
 
 
@@ -100,6 +115,4 @@ class ChessClock() {
         whiteButton = buttonForWhite
         blackButton = buttonForBlack
     }
-
-
 }

@@ -85,5 +85,21 @@
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
 
+    <Button
+        android:id="@+id/btnRunControl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:drawableTop="@drawable/ic_start"
+        android:drawableBottom="@drawable/ic_pause"
+        android:rotation="90"
+        android:shadowColor="@color/greenThemeLight"
+        android:text=""
+        app:backgroundTint="@color/greenThemeLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/btnRestart" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

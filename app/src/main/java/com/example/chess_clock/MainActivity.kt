@@ -1,10 +1,8 @@
 package com.example.chess_clock
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.preference.PreferenceManager
 import com.example.chess_clock.databinding.ActivityMainBinding
@@ -26,14 +24,19 @@ class MainActivity : AppCompatActivity() {
         btnTime1 = findViewById<Button>(R.id.btnTime1)
         btnTime2 = findViewById<Button>(R.id.btnTime2)
         chessClock = ChessClock()
-
+        
     }
 
 
     override fun onResume() {
         super.onResume()
 
-        chessClock.updateWithSettings()
+        if (!chessClock.isOn || Settings.newSettings) {
+            chessClock.updateWithSettings()
+        }
+        else{
+            chessClock.run()
+        }
 
         updateClockButtons()
 
@@ -44,8 +47,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRestart.setOnClickListener {
-            chessClock.restartClock()
+            chessClock.restart()
             updateClockButtons()
+        }
+
+        binding.btnRunControl.setOnClickListener {
+            if (chessClock.onPause){
+                chessClock.pause()
+            }
+            else{
+                chessClock.run()
+            }
         }
 
         binding.btnTime1.setOnClickListener {
@@ -65,6 +77,11 @@ class MainActivity : AppCompatActivity() {
                 chessClock.handleTurn()
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        chessClock.pause()
     }
 
     private fun updateClockButtons(){
