@@ -7,22 +7,26 @@ import android.widget.Button
 class ChessClock() {
     enum class Player{White,Black}
     private val interval: Long = 1000L
-    var isOn = false
-    var onPause = false
+    var gameStarted = false
+    var isRunning = false
 
     var gameTime: Long = Settings.getGameTime()
     var gameTimeIncrement: Long = Settings.getGameTimeIncrement()
     var whiteTime = gameTime
     var blackTime = gameTime
     var playerTurn = Player.Black
-    var countDownTimer: CountDownTimer? = null
-
+    
+    var countDownTimer: CountDownTimer = object : CountDownTimer(gameTime,interval){
+        override fun onTick(millisUntilFinished: Long) {}
+        override fun onFinish() {}
+    }
     var whiteButton: Button? = null
     var blackButton: Button? = null
 
+
     fun startGame(buttonForWhite: Button, buttonForBlack: Button){
-        isOn = true
-        onPause = true
+        gameStarted = true
+        isRunning = true
         setButtons(buttonForWhite,buttonForBlack)
         playerUpdate()
         startClocks()
@@ -46,17 +50,17 @@ class ChessClock() {
         countDownTimer!!.cancel()
         updateWithSettings()
         playerTurn = Player.Black
-        isOn = false
+        gameStarted = false
     }
 
     fun pause(){
-        onPause = false
+        isRunning = false
         countDownTimer!!.cancel()
 
     }
 
     fun run(){
-        onPause = true
+        isRunning = true
         startClocks()
     }
 

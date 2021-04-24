@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        if (!chessClock.isOn || Settings.newSettings) {
+        if (!chessClock.gameStarted || Settings.newSettings) {
             chessClock.updateWithSettings()
         }
         else{
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRunControl.setOnClickListener {
-            if (chessClock.onPause){
+            if (chessClock.isRunning){
                 chessClock.pause()
             }
             else{
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnTime1.setOnClickListener {
-            if (!chessClock.isOn){
+            if (!chessClock.gameStarted){
                 chessClock.startGame(btnTime2,btnTime1)
             }
             else{
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnTime2.setOnClickListener {
-            if (!chessClock.isOn){
+            if (!chessClock.gameStarted){
                 chessClock.startGame(btnTime1,btnTime2)
             }
             else{
