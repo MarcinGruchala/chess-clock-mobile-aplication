@@ -3,13 +3,16 @@ package com.example.chess_clock
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.preference.PreferenceManager
 import com.example.chess_clock.databinding.ActivityMainBinding
 
 private lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
+
+    lateinit var btnTime1: Button
+    lateinit var btnTime2: Button
+    lateinit var chessClock: ChessClock
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,22 +21,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         Settings.load(PreferenceManager.getDefaultSharedPreferences(applicationContext))
+        btnTime1 = findViewById<Button>(R.id.btnTime1)
+        btnTime2 = findViewById<Button>(R.id.btnTime2)
+        chessClock = ChessClock()
+        
     }
+
 
     override fun onResume() {
         super.onResume()
-        val btnTime1 = findViewById<Button>(R.id.btnTime1)
-        val btnTime2 = findViewById<Button>(R.id.btnTime2)
 
-        var gameTime = Settings.getGameTime()
-        var gameTimeIncrement = Settings.getGameTimeIncrement()
-        Log.d("MainActivity", "Increment setting: $gameTimeIncrement")
+        if (!chessClock.gameStarted || Settings.newSettings) {
+            chessClock.updateWithSettings()
+        }
+        else{
+            chessClock.run()
+        }
 
-        var countDownInterval = 1000L
-        var chessTimer= ChessClock(btnTime1,btnTime2,gameTime,gameTimeIncrement,countDownInterval)
-
-        binding.btnTime1.text = "${Time.toTime(gameTime).getString(Time.MINUTES)}:${Time.toTime(gameTime).getString(Time.SECONDS)}"
-        binding.btnTime2.text = "${Time.toTime(gameTime).getString(Time.MINUTES)}:${Time.toTime(gameTime).getString(Time.SECONDS)}"
+        updateClockButtons()
 
         binding.btnSettings.setOnClickListener {
             Intent(this,SettingsActivity::class.java).also {
@@ -41,32 +46,46 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnTime1.setOnClickListener {
-            if (!chessTimer.isOn){
-                chessTimer.isOn = true
-                chessTimer.blackButton=btnTime1
-                chessTimer.whitenButton=btnTime2
-                chessTimer.startClocks()
+        binding.btnRestart.setOnClickListener {
+            chessClock.restart()
+            updateClockButtons()
+        }
+
+        binding.btnRunControl.setOnClickListener {
+            if (chessClock.isRunning){
+                chessClock.pause()
             }
             else{
-                chessTimer.stopClocks()
-                chessTimer.playerUpdate()
-                chessTimer.startClocks()
+                chessClock.run()
+            }
+        }
+
+        binding.btnTime1.setOnClickListener {
+            if (!chessClock.gameStarted){
+                chessClock.startGame(btnTime2,btnTime1)
+            }
+            else{
+                chessClock.handleTurn()
             }
         }
 
         binding.btnTime2.setOnClickListener {
-            if (!chessTimer.isOn){
-                chessTimer.isOn = true
-                chessTimer.blackButton=btnTime2
-                chessTimer.whitenButton=btnTime1
-                chessTimer.startClocks()
+            if (!chessClock.gameStarted){
+                chessClock.startGame(btnTime1,btnTime2)
             }
             else{
-                chessTimer.stopClocks()
-                chessTimer.playerUpdate()
-                chessTimer.startClocks()
+                chessClock.handleTurn()
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        chessClock.pause()
+    }
+
+    private fun updateClockButtons(){
+        binding.btnTime1.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"
+        binding.btnTime2.text = "${Time.toTime(chessClock.gameTime).getString(Time.MINUTES)}:${Time.toTime(chessClock.gameTime).getString(Time.SECONDS)}"
     }
 }

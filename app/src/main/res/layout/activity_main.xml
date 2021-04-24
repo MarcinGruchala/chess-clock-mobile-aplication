@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/greenThemeLight">
+    android:background="@color/greenThemeLight"
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btnTime1"
@@ -60,17 +60,46 @@
         android:id="@+id/btnSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/ic_settings_dark_foreground"
+        android:layout_marginTop="32dp"
+        android:drawableBottom="@drawable/ic_settings_small"
+        android:drawingCacheQuality="high"
         android:rotation="90"
         android:shadowColor="@color/greenThemeLight"
         app:backgroundTint="@color/greenThemeLight"
         app:iconTint="@color/greenThemeLight"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:drawableBottom="@drawable/ic_restart"
+        android:rotation="90"
+        android:shadowColor="@color/greenThemeLight"
+        app:backgroundTint="@color/greenThemeLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+
+    <Button
+        android:id="@+id/btnRunControl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:drawableTop="@drawable/ic_start"
+        android:drawableBottom="@drawable/ic_pause"
+        android:rotation="90"
+        android:shadowColor="@color/greenThemeLight"
+        android:text=""
+        app:backgroundTint="@color/greenThemeLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/btnRestart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

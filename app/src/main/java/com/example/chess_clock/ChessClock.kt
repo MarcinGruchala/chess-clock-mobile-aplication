@@ -4,21 +4,68 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Button
 
-class ChessClock(
-        var whitenButton: Button,
-        var blackButton: Button,
-        val gameTime: Long,
-        val gameTimeIncrement: Long,
-        val interval: Long
-)  {
+class ChessClock() {
     enum class Player{White,Black}
-    var isOn = false
+    private val interval: Long = 1000L
+    var gameStarted = false
+    var isRunning = false
+
+    var gameTime: Long = Settings.getGameTime()
+    var gameTimeIncrement: Long = Settings.getGameTimeIncrement()
     var whiteTime = gameTime
     var blackTime = gameTime
     var playerTurn = Player.Black
-    var countDownTimer: CountDownTimer? = null
 
-    fun startClocks(){
+    var countDownTimer: CountDownTimer = object : CountDownTimer(gameTime,interval){
+        override fun onTick(millisUntilFinished: Long) {}
+        override fun onFinish() {}
+    }
+    var whiteButton: Button? = null
+    var blackButton: Button? = null
+
+
+    fun startGame(buttonForWhite: Button, buttonForBlack: Button){
+        gameStarted = true
+        isRunning = true
+        setButtons(buttonForWhite,buttonForBlack)
+        playerUpdate()
+        startClocks()
+    }
+
+    fun handleTurn(){
+        stopClocks()
+        playerUpdate()
+        startClocks()
+    }
+
+    fun updateWithSettings(){
+        gameTime = Settings.getGameTime()
+        gameTimeIncrement = Settings.getGameTimeIncrement()
+        whiteTime = gameTime
+        blackTime = gameTime
+        Settings.newSettings = false
+    }
+
+    fun  restart(){
+        countDownTimer.cancel()
+        updateWithSettings()
+        playerTurn = Player.Black
+        gameStarted = false
+    }
+
+    fun pause(){
+        isRunning = false
+        countDownTimer.cancel()
+
+    }
+
+    fun run(){
+        isRunning = true
+        startClocks()
+    }
+
+
+    private fun startClocks(){
         when(playerTurn){
             Player.White -> {
                 countDownTimer = object : CountDownTimer(whiteTime,interval){
@@ -41,11 +88,11 @@ class ChessClock(
 
             }
         }
-        countDownTimer!!.start()
+        countDownTimer.start()
     }
 
-    fun stopClocks(){
-        countDownTimer!!.cancel()
+    private fun stopClocks(){
+        countDownTimer.cancel()
         when(playerTurn){
             Player.White ->{
                 Log.d("ChessClock","Increment WHITE time")
@@ -59,13 +106,17 @@ class ChessClock(
         updateUi(Time.toTime(whiteTime), Time.toTime(blackTime))
     }
 
-    fun playerUpdate(){
+    private fun playerUpdate(){
         playerTurn = if (playerTurn==Player.White) Player.Black else Player.White
     }
 
     private fun updateUi(whiteTime: Time, blackTime: Time){
-        whitenButton.text = "${whiteTime.getString(Time.MINUTES)}:${whiteTime.getString(Time.SECONDS)}"
-        blackButton.text = "${blackTime.getString(Time.MINUTES)}:${blackTime.getString(Time.SECONDS)}"
+        whiteButton?.text = "${whiteTime.getString(Time.MINUTES)}:${whiteTime.getString(Time.SECONDS)}"
+        blackButton?.text = "${blackTime.getString(Time.MINUTES)}:${blackTime.getString(Time.SECONDS)}"
     }
 
+    private fun setButtons(buttonForWhite: Button, buttonForBlack: Button){
+        whiteButton = buttonForWhite
+        blackButton = buttonForBlack
+    }
 }

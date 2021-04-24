@@ -10,6 +10,7 @@ import kotlin.coroutines.coroutineContext
 object Settings {
     var gameTime: String? = "10min"
     var gameTimeIncrement: String? = "0s"
+    var newSettings = false
 
 
     fun load(sharedPreferences: SharedPreferences){
