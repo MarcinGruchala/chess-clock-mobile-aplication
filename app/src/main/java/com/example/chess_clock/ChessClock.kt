@@ -15,7 +15,7 @@ class ChessClock() {
     var whiteTime = gameTime
     var blackTime = gameTime
     var playerTurn = Player.Black
-    
+
     var countDownTimer: CountDownTimer = object : CountDownTimer(gameTime,interval){
         override fun onTick(millisUntilFinished: Long) {}
         override fun onFinish() {}
@@ -47,7 +47,7 @@ class ChessClock() {
     }
 
     fun  restart(){
-        countDownTimer!!.cancel()
+        countDownTimer.cancel()
         updateWithSettings()
         playerTurn = Player.Black
         gameStarted = false
@@ -55,7 +55,7 @@ class ChessClock() {
 
     fun pause(){
         isRunning = false
-        countDownTimer!!.cancel()
+        countDownTimer.cancel()
 
     }
 
@@ -88,11 +88,11 @@ class ChessClock() {
 
             }
         }
-        countDownTimer!!.start()
+        countDownTimer.start()
     }
 
     private fun stopClocks(){
-        countDownTimer!!.cancel()
+        countDownTimer.cancel()
         when(playerTurn){
             Player.White ->{
                 Log.d("ChessClock","Increment WHITE time")
